@@ -1,127 +1,28 @@
+<!-- chatbot.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Virtual Medical Assistant</title>
-  <link rel="stylesheet" href="web.css"/>
+  <title>Symptom Checker</title>
   <style>
-    .mic-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #28a745;
-      color: white;
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
       border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 24px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      cursor: pointer;
-      z-index: 1000;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="hero">
-      <img src="https://imgs.search.brave.com/4R9LTnS9aqjZ-a_lUsd2AxU5u9-F2fRzCaTTr0KI_OE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9va2F5/cmVsYXguY29tL3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDI0LzAx/L3ZlY3RlZXp5X21l/ZGljby1pY29uby1w/YW50YWxsYS12aXJ0/dWFsLWF0ZW5jaW9u/LW1lZGljYS15LW1l/ZGljYS1lbi1lbF8x/MjYwNDIwNS0xMDI0/eDU3Ni5qcGc" alt="Virtual Medical Assistant" class="hero-image"/>
-      <div class="hero-text">
-        <h1>Virtual Medical Assistant</h1>
-        <p>Your AI-powered health companion, guiding you towards a healthy and productive life!</p>
-      </div>
-    </div>
-  </header>
-
-  <section class="features">
-    <div class="container">
-      <h2>What I Can Do for You</h2>
-      <div class="cards">
-        <div class="card">
-          <img src="https://imgs.search.brave.com/CU7ivUwQi4yQE32wDyk3Fm38YcuoxJoNGxAyd5tfPB0/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAzLzU2LzY1LzE2/LzM2MF9GXzM1NjY1/MTYyOF9IRWVqZ1hP/QTJNSjVtNGNQbUhu/R3pQeGtMV3JYU1JK/YS5qcGc" alt="Symptom Checker" class="card-image"/>
-          <h3>Symptom Checker</h3>
-          <p>Understand your symptoms and get advice on when to visit a doctor or take action.</p>
-          <a href="chatbot.html" class="button">Try Symptom Checker</a>
-        </div>
-        <div class="card">
-          <img src="https://imgs.search.brave.com/Cw-1YDnc5evKSQZqgzMIC1viuavJgxx69juz__xXPv0/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by90/b3Atdmlldy1waWxs/cy13aXRoLWNvbnRh/aW5lci1jb3B5LXNw/YWNlXzIzLTIxNDg1/MzM0MjAuanBnP3Nl/bXQ9YWlzX2h5YnJp/ZA" alt="Medication Info" class="card-image"/>
-          <h3>Medication Info</h3>
-          <p>Learn about safe medication usage, side effects, and potential interactions.</p>
-          <a href="med.html" class="button">Medicine Info</a>
-        </div>
-        <div class="card">
-          <img src="https://imgs.search.brave.com/sNUBR85v54OyRhSd8uqJebzKqo8Tw0xRoXnP97uSdgY/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9k/aWFnbm9zZS1kb2N0/b3ItbWVkaWNpbmUt/aGVhbHRoLXdlbGxu/ZXNzLWNvbmNlcHRf/NTM4NzYtMTI1NDMy/LmpwZz9zZW10PWFp/c19oeWJyaWQ" alt="Health Guidance" class="card-image"/>
-          <h3>Health Guidance</h3>
-          <p>Receive personalized health advice, from managing stress to maintaining a balanced diet.</p>
-          <a href="health.html" class="button">Health Tips for Teens</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="contact">
-    <div class="container">
-      <h2>Contact</h2>
-      <p>Got questions or feedback? Reach out to us!</p>
-      <form action="https://formsubmit.co/sahilshabbir4568@gmail.com" method="POST">
-        <input type="text" name="name" placeholder="Your name" required/>
-        <br/>
-        <input type="email" name="email" placeholder="Your email" required/>
-        <br/>
-        <textarea name="message" placeholder="Your message" required></textarea>
-        <br/>
-        <button type="submit">Send Message</button>
-      </form>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Virtual Medical Assistant | Helping teens lead healthy, balanced lives.</p>
-    </div>
-  </footer>
-
-  <!-- Floating Mic Button -->
-  <button class="mic-button" onclick="startVoiceAssistant()" title="Speak to Assistant">🎤</button>
-
-  <script>
-    function startVoiceAssistant() {
-      const synth = window.speechSynthesis;
-      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-      recognition.lang = "en-US";
-
-      recognition.onstart = () => {
-        alert("Listening... Speak something like: 'Check symptoms', 'Tell me about paracetamol', or 'Give health tips'");
-      };
-
-      recognition.onresult = (event) => {
-        const userInput = event.results[0][0].transcript.toLowerCase();
-        let redirect = "";
-
-        if (userInput.includes("symptom")) {
-          redirect = "chatbot.html";
-        } else if (userInput.includes("medicine") || userInput.includes("paracetamol")) {
-          redirect = "med.html";
-        } else if (userInput.includes("health") || userInput.includes("tip")) {
-          redirect = "health.html";
-        } else {
-          synth.speak(new SpeechSynthesisUtterance("Sorry, I didn't catch that. Try again."));
-          return;
-        }
-
-        synth.speak(new SpeechSynthesisUtterance("Opening " + redirect.replace(".html", "").replace("-", " ") + " section."));
-        setTimeout(() => {
-          window.location.href = redirect;
-        }, 1500);
-      };
-
-      recognition.onerror = () => {
-        synth.speak(new SpeechSynthesisUtterance("Voice recognition failed. Please try again."));
-      };
-
-      recognition.start();
-    }
-  </script>
+  <iframe
+    src="https://www.chatbase.co/chatbot-iframe/Gqf6POP75BIUsPdDpznmX"
+    frameborder="0"
+    allow="clipboard-write"
+  ></iframe>
 </body>
 </html>

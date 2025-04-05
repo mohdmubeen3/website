@@ -10,73 +10,19 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: Arial, sans-serif;
     }
     iframe {
       width: 100%;
-      height: calc(100% - 60px);
+      height: 100%;
       border: none;
-    }
-    .controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      padding: 10px;
-      background: #f0f0f0;
-      border-top: 2px solid #ddd;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <iframe
-    id="chatFrame"
     src="https://www.chatbase.co/chatbot-iframe/Gqf6POP75BIUsPdDpznmX"
     frameborder="0"
     allow="clipboard-write"
   ></iframe>
-
-  <div class="controls">
-    <button onclick="startVoiceInput()">🎤 Speak</button>
-    <button onclick="speakText()">🔊 Read Response</button>
-  </div>
-
-  <script>
-    function startVoiceInput() {
-      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-      recognition.lang = 'en-US';
-      recognition.interimResults = false;
-
-      recognition.onresult = function(event) {
-        const voiceText = event.results[0][0].transcript;
-        const iframe = document.getElementById('chatFrame').contentWindow;
-        iframe.postMessage({ type: 'user', message: voiceText }, '*');
-      };
-
-      recognition.onerror = function(event) {
-        alert('Error: ' + event.error);
-      };
-
-      recognition.start();
-    }
-
-    function speakText() {
-      const iframe = document.getElementById('chatFrame');
-      iframe.contentWindow.postMessage({ type: 'get-last-message' }, '*');
-    }
-
-    window.addEventListener('message', function(event) {
-      if (event.data?.type === 'bot-response' && event.data?.message) {
-        const msg = new SpeechSynthesisUtterance(event.data.message);
-        msg.lang = 'en-US';
-        speechSynthesis.speak(msg);
-      }
-    });
-  </script>
 </body>
 </html>
